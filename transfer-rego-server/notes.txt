@@ -1,0 +1,55 @@
+
+TRANSFER CAR REGO
+
+information required:
+
+- registration number
+- date of disposal/acquisition
+- sale price/market value
+- purchasers details - customer number/name/address/dob
+- sellers details - customer number/name/address/dob
+- registration usage - priv/busg/pnsr/sale
+
+FEEES TO BE CALCULATED:
+transfer fee (within 14days of date of acquisition) - $34
+transfer fee (after 14ddays of date of acquisition - $155
+stamp duty - 3% of sale price/market value
+motor vehicle tax (if seller was a pnsr)
+-------> additional fees may apply? - eg pensioner to private use
+
+STORAGE DATA:
+
+customer number: uuid  // server side generated
+name: "test name"
+address: ""
+
+registration number: ""
+registration usage: "" (private/business/pensioner/resale)
+acquisition date: dd-mm-yyyy
+disposal date: blank or a date dd-mm-yyyy
+ownerId: {an existing customer number}
+
+** some records will not have a vehicle
+
+USE CASE:
+
+transferRegistration
+** request **                     ** response **
+- enter registration details    -> rego found, display details 
+                                    -> show form to enter transfer details,
+                                            -> if customer exists, continue and enter details       
+                                            -> if customer does not exist, add customer - create a customer number
+
+                                    -> will calculate fees and show fees applicable and updated details     
+                                        -> calculation: validation to work out todays date and acquisition date (<> 14 days)
+                                                        what was previous owners usage?
+                                    -> update database - registration ownerId becomes the buyers customerNumber
+                                                    
+                                
+                                -> rego not found, error message
+
+
+viewAllRegistration - GET
+-
+
+searchForRegistration
